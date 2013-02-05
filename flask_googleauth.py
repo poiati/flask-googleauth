@@ -201,7 +201,13 @@ class GoogleAuth(OpenIdMixin):
 
     _OPENID_ENDPOINT = "https://www.google.com/accounts/o8/ud"
 
-    def __init__(self, app, install=True, url_prefix=None, name="GoogleAuth"):
+    def __init__(self, app=None, install=True, url_prefix=None, name="GoogleAuth"):
+        if app is not None:
+            self.init_app(app, install, url_prefix, name)
+        else:
+            self.app = None
+
+    def init_app(self, app, install=True, url_prefix=None, name="GoogleAuth"):
         self.app = app
         self.blueprint = Blueprint(name, __name__, url_prefix=url_prefix)
         if install:
